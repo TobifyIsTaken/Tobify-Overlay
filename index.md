@@ -4,6 +4,13 @@ You can use the [editor on GitHub](https://github.com/TobifyIsTaken/Tobify-Overl
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
+### Installation
+
+1. Download the overlay using this [link](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/TobifyIsTaken/Tobify-Overlay/tree/master).
+2. Unzip the downloaded folder.
+3. Open the folder and find the file named "Tobify.exe" - it may not show the file extension ".exe", this is fine.
+4. Run the program.
+
 ### Markdown
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
