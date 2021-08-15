@@ -1,7 +1,7 @@
 
 # **Tobify**
 
-# About
+## About
 
 Tobify Overlay is a standalone program designed to provide information of the players in your games. If you have any questions, click [here](faq.md).
 
