@@ -4,7 +4,10 @@
 Tobify Overlay is a standalone program designed to provide information of the players 
 
 ## Features
+
 TODO
+
+---
 
 > # Installation and Setup
 >
@@ -23,12 +26,18 @@ TODO
 >    - For lunar client, uncheck the Minecraft box and check the Lunar box.
 >    - If your client isn't listed, tick the box named other. You will need to find your chat log.
 
+---
+
 ## Usage
 
 If you have set up the overlay correctly it should now be detecting players in your lobby when they send messages.
 
+---
+
 ## Site Info
 TODO
+
+---
 
 ### Markdown
 
