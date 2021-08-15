@@ -1,3 +1,4 @@
+<link rel="icon" href="/YourIcon.ico" type="image/x-icon" />
 
 # About
 
