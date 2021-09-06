@@ -1,4 +1,6 @@
 config.json
 StatOverlay.db
 StatOverlay.db-journal
-known_nicks.json
+/Tobify/config.json
+/Tobify/Images/*
+/Tobify/known_nicks.json

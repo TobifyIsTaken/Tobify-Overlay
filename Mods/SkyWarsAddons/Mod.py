@@ -62,7 +62,7 @@ class MOD:
             "skywars-addons-layout-set-defaults": False,
         }
         self.ModData.settings = {
-            "skywars-addons-layout-set-defaults": "Adjust layout for bridge skywars",  # config name : displayed name
+            "skywars-addons-layout-set-defaults": "Adjust layout for skywars",  # config name : displayed name
         }
         self.ModData.headings = {
             "sw-kdr": " Kdr ",
@@ -107,7 +107,8 @@ class MOD:
                 "sw-wlr",
                 "sw-kpg",
                 "sw-lvl",
-                "hp-lvl"
+                "hp-lvl",
+                "tag",
             ]
 
             # sort by
@@ -122,10 +123,10 @@ class MOD:
         try:
             # attempt to get info
             skywars_stats = hypixel_data["player"]["stats"]["SkyWars"]
-            existing_stats["sw-kdr"] = round(skywars_stats["kills"] / skywars_stats["deaths"], 2)
+            existing_stats["sw-kdr"] = round(skywars_stats["kills"] / max([skywars_stats["deaths"], 1]), 2)
             existing_stats["sw-games"] = skywars_stats["wins"] + skywars_stats["losses"]
-            existing_stats["sw-kpg"] = round(skywars_stats["kills"] / existing_stats["sw-games"], 2)
-            existing_stats["sw-wlr"] = round(skywars_stats["wins"] / skywars_stats["losses"], 2)
+            existing_stats["sw-kpg"] = round(skywars_stats["kills"] / max([existing_stats["sw-games"], 1]), 2)
+            existing_stats["sw-wlr"] = round(skywars_stats["wins"] / max([skywars_stats["losses"], 1]), 2)
             existing_stats["sw-ws"] = skywars_stats["win_streak"]
             existing_stats["sw-lvl"] = int(get_digits(skywars_stats["levelFormatted"][2:]))
             existing_stats["sw-coins"] = skywars_stats["coins"]

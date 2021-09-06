@@ -13,7 +13,7 @@ class MOD:
 
         # set mod data
         self.ModData.name = "PartyInfo"
-        self.ModData.version = "0.0.1"
+        self.ModData.version = "0.1.0"
         self.ModData.config = {
             "party-info-active": False,
             "party-info-friends": True,
@@ -33,21 +33,19 @@ class MOD:
         self.ModData.headings = {
             "party-id": "Party",
         }
+        self.ModData.custom_heading_colours = {
+            "party-id": self.get_table_colour
+        }
         self.ModData.scopes = {
             "init": self.setup,  # this is part of the setup for the backend ui
-            "update-f": self.updatef,  # this is part of the main update loop for the frontend ui
+            # "update-f": self.updatef,  # this is part of the main update loop for the frontend ui
             "config-init": self.ModData.config,  # this is a dictionary of all config items which the mod uses
             "config-settings": self.ModData.name,  # this registers the mod for the settings menu
             "table-headings": self.ModData.headings,  # this contains any additional table headings
+            "table-heading-colours": self.ModData.custom_heading_colours,  # this replaces the default colour picker
             "on-stat-lookup": self.on_stat_lookup,  # this is called when stats have been requested for a player
             "order-colour": self.order_colour,  # this determines output colour
         }
-
-    def updatef(self):
-        """ This is called during the frontend update loop """
-        # update colour of party column
-        if self.G.config["party-info-party-colour"] and not self.G.config["party-info-text-colour"]:
-            self.modify_party_column_colour()
 
     def setup(self, frontend, backend):
         """ This is the mod setup function """
@@ -122,7 +120,7 @@ class MOD:
                                 extra_players.append(i)
 
                                 # get the levex
-                                party_levex += player_stats["levex"]
+                                party_levex += player_stats["bw-overall-levex"]
 
                     # add tag
                     if self.G.gplayer_stats[player_pos]["display-name"] in self.G.config["Party"] or \
@@ -135,7 +133,7 @@ class MOD:
                         self.G.gplayer_stats[player_pos]["party-id"] = next_available_party
 
                     # get levex
-                    party_levex += self.G.gplayer_stats[player_pos]["levex"]
+                    party_levex += self.G.gplayer_stats[player_pos]["bw-overall-levex"]
 
                 # tag the new player
                 if existing_stats["display-name"].lower() in self.G.config["Party"].lower() or existing_stats[
@@ -148,7 +146,7 @@ class MOD:
                     existing_stats["party-id"] = next_available_party
 
                 # get the new player's levex
-                party_levex += existing_stats["levex"]
+                party_levex += existing_stats["bw-overall-levex"]
 
             # add to players to tag
             players_to_tag += extra_players
@@ -161,10 +159,10 @@ class MOD:
 
                 # adjust all players
                 for player_pos in players_to_tag:
-                    self.G.gplayer_stats[player_pos]["levex"] = party_levex
+                    self.G.gplayer_stats[player_pos]["bw-overall-levex"] = party_levex
 
                 # adjust new player
-                existing_stats["levex"] = party_levex
+                existing_stats["bw-overall-levex"] = party_levex
         else:
             # add an empty tag
             existing_stats["party-id"] = ""
@@ -238,19 +236,6 @@ class MOD:
                 friend_list.append(data["uuidSender"])
         return friend_list
 
-    def modify_party_column_colour(self):
-        """ This updates the colour for the party column """
-        # update every text element with the new colour
-        if not self.Globals.config["Overlay"] and self.G.config["party-info-active"]:
-            for x in range(self.Globals.config["main-window-table-rows"]):
-                for y, heading in enumerate(self.Globals.config["headings-main"]):
-                    if heading == "party-id":
-                        # attempt update with data
-                        if len(self.frontend.player_stats) > x:
-                            if len(self.frontend.player_stats[0]) > y:
-                                self.frontend.window[f"TABLE-{x}-{y}"].update(
-                                    text_color=self.get_custom_player_colour(self.frontend.player_stats[x]["party-id"]))
-
     def order_colour(self, num):
         """ This determines colour coding """
         # should it return a colour
@@ -293,3 +278,7 @@ class MOD:
         else:
             # purple
             return "#9A69F9"
+
+    def get_table_colour(self, pos):
+        """ This returns the colour for the player in the table at the position given """
+        return self.get_custom_player_colour(self.frontend.player_stats[pos]["party-id"])
