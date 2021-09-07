@@ -4,3 +4,4 @@ StatOverlay.db-journal
 /Tobify/config.json
 /Tobify/Images/*
 /Tobify/known_nicks.json
+/Tobify/log.txt
