@@ -1,3 +1,6 @@
+from utils import add_tag
+
+
 class MOD:
     def __init__(self, Globals):
         """ This is an example mod """
@@ -150,7 +153,12 @@ class MOD:
                 except:
                     existing_stats[f"bw-{name}-kdr"] = 0
 
+            # tagging?
+            if existing_stats["bw-overall-levex"] > 1000:
+                add_tag(existing_stats["nick-name"], "BW")
+
         except Exception as e:
+            print("ERROR", e)
             # set defaults
             existing_stats["bw-coins"] = 0
             existing_stats["bw-xp"] = 0
